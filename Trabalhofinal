@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main () {
+	char ch;
+	FILE *claramentenaoeumponteiro;
+	claramentenaoeumponteiro = fopen ("bird.ascii.pgm","r");
+	if (claramentenaoeumponteiro==NULL){
+		printf("Deu não man...\n");
+		exit(1);
+	}
+	while (ch!=EOF){
+		ch=getc(claramentenaoeumponteiro);
+		if(ch!=EOF){
+			printf("%d ", ch);
+		}
+	}
+	fclose(claramentenaoeumponteiro);
+	return 0;
+}
