@@ -3,7 +3,7 @@
 int main () {
 	char ch, str[200],straux[200];
 	int **matrix; 
-	int i=3,k=0,j=0,p=0,mtflag=2,lar,alt,bmax,pixcount,b;
+	int i=0,k=0,j=0,p=0,mtflag=2,lar,alt,bmax,pixcount,b;
 	int num=0;
 	FILE *claramentenaoeumponteiro;
 	claramentenaoeumponteiro = fopen ("feep.ascii.pgm","r");
@@ -11,9 +11,10 @@ int main () {
 		printf("Deu não man...\n");
 		exit(1);
 	}
-	while(i--){ /*Cria o 'matrix' alocado dinamicamente note que o range e de 0 a (largura-1), guarda o valor maximo de cor com 'bmax'*/
+	while(i<3){ /*Cria o 'matrix' alocado dinamicamente note que o range e de 0 a (largura-1), guarda o valor maximo de cor com 'bmax'*/
 		fgets (str, 200, claramentenaoeumponteiro);
 		if (str[k]=='0'||str[k]=='1'||str[k]=='2'||str[k]=='3'||str[k]=='4'||str[k]=='5'||str[k]=='6'||str[k]=='7'||str[k]=='8'||str[k]=='9'){
+			i++;
 			j=k;
 			while(str[j]!=' '){
 				j++;
@@ -45,7 +46,7 @@ int main () {
 			}
 		}
 	}
-	fgets (str, 200, claramentenaoeumponteiro);
+/*	fgets (str, 200, claramentenaoeumponteiro);
 	while(b>=alt){
 		if(str[k]=='0'||str[k]=='1'||str[k]=='2'||str[k]=='3'||str[k]=='4'||str[k]=='5'||str[k]=='6'||str[k]=='7'||str[k]=='8'||str[k]=='9'){
 			j=k;
@@ -72,7 +73,7 @@ int main () {
 		else{
 			fgets (str, 200, claramentenaoeumponteiro);
 		}
-	}
+	}*/
 //		if (ch!='0'||ch!='1'||ch!='2'||ch!='3'||ch!='4'||ch!='5'||ch!='6'||ch!='7'||ch!='8'||ch!='9'||ch!=' '){
 //			fgets (str, 20000, claramentenaoeumponteiro); //pula a linha
 //		}
