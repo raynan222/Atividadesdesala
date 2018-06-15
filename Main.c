@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int** md(int alt,int lar);
 	int main () {
 		char lixo[200],ch;
-		int alt=-1,lar=-1,esc=-1,i,j,si,sj,li,aux,laux,**matriz,count=0,laplaci[9]={-1,-1,-1,-1,8,-1,-1,-1,-1};
+		int alt=-1,lar=-1,esc=-1,i,j,si,sj,li,aux,laux,**matriz,count,laplaci[9]={-1,-1,-1,-1,8,-1,-1,-1,-1};
 		printf("Digite o nome do arquivo sem extensão:\n");
 		gets (lixo);
 		strcat (lixo,".ascii.pgm");
