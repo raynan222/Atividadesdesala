@@ -1,218 +1,373 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-	int main () {
-		char lixo[200],ch,opcao;
-		unsigned char **matriz,**matrizvariavel,aux,soma;
-		int alt=-1,lar=-1,esc=-1,count=-1,j,i,k,l,mask;
+#include <math.h>
+
+		int main () {
+		char lixo[200],ch,opcao[2],nomearquivo[200],gaussianon[11]={'G','a','u','s','s','i','a','n','o',' '},p2[3]={'P','2'},tmask[2],sobeln[7]={'S','o','b','e','l',' '},laplacen[12]={'L','a','p','l','a','c','i','a','n','o',' '},prewittn[9]={'P','r','e','w','i','t','t',' '};
+		unsigned char **matriz,aux;
+		float **matrizvariavel,**matrizrec,**matrizexp,soma,mask=3.0;
+		int alt=-1,lar=-1,count=0,esc=-1,j,i,k,l,m,n,a,b,c,zero=0;
 		int laplace[3][3] = {{0, -1, 0},{-1, 4, -1},{0, -1, 0}};
-		int prewit[3][3] = {{-1, 0, 1},{-1, 0, 1},{-1, 0, 1}};
+		int prewitt[3][3] = {{-1, 0, 1},{-1, 0, 1},{-1, 0, 1}};
 		int sobel[3][3] = {{-1, 0, 1},{-2, 0, 2},{-1, 0, 1}};
+		FILE *fp;
+		FILE *ps;
+
+		count=0;
 		system("clear");
 		printf("Digite o nome do arquivo sem extensão:\n");
-		gets (lixo);
-		strcat (lixo,".ascii.pgm");
-		FILE *fp;
-		fp = fopen (lixo,"r");
+		gets (nomearquivo);
+		strcat (nomearquivo,".ascii.pgm");
+		fp = fopen (nomearquivo,"r");
 
 		if (fp==NULL){
+			system("clear");
 			printf("Não foi possivel abrir o arquivo.\nPressione ENTER para sair!");
 			gets();
 			exit(1);
 		}
-		while (count<0){
+
+		while (count==0){
 			system("clear");
-			printf("Arquivo selecionado: %s\nSelecione uma das opções abaixo.\n\n(a)Aplicar filtro de media ponderada.\n(b)Aplicar filtro Gaussiano.\n(c)Aplicar filtro Laplaciano.\n(d)Aplicar filtro de prewit.\n(e)Sair.\n",lixo);
-			scanf("%c",&opcao);
-			if(opcao=='a'||opcao=='A'||opcao=='1'){
+			printf("\nArquivo selecionado: %s\n\nSelecione uma das opções abaixo:\n\n(A)Aplicar filtro de Sobel.\n(B)Aplicar filtro Laplaciano.\n(C)Aplicar filtro de prewitt.\n(D)Aplicar filtro Gaussiano(3x3).\n(E)Aplicar filtro Gaussiano(5x5).\n(F)Aplicar filtro Gaussiano(7x7).\n(G)Aplicar filtro da média ponderada.\n(X)Sair.\n\n",nomearquivo);
+			gets(&opcao);
+			if(opcao[zero]=='a'||opcao[zero]=='A'||opcao[zero]=='1'){
+				count=10;
 			}
-			if(opcao=='b'||opcao=='B'||opcao=='2'){
-				count++;
+			if(opcao[zero]=='b'||opcao[zero]=='B'||opcao[zero]=='2'){
+				count=20;
 			}
-			if(opcao=='c'||opcao=='D'||opcao=='3'){
+			if(opcao[zero]=='c'||opcao[zero]=='D'||opcao[zero]=='3'){
+				count=30;
 			}
-			if(opcao=='d'||opcao=='D'||opcao=='4'){
+			if(opcao[zero]=='d'||opcao[zero]=='D'||opcao[zero]=='4'){
+				count=40;
+				mask=3.0;
 			}
-			if(opcao=='e'||opcao=='E'||opcao=='5'){		
-					exit(1);
+			if(opcao[zero]=='e'||opcao[zero]=='E'||opcao[zero]=='5'){
+				count=40;
+				mask=5.0;
 			}
-		}
-		while (count<1){
-			printf("\nQual tamanho de mascara sera usada?\n(a)Mascara de 3x3.\n(b)Mascara de 5x5.\n(c)Mascara de 7x7.\n(d)Inserir valor manualmente.\n");
-			scanf("%c",&opcao);
-			if(opcao=='a'||opcao=='A'||opcao=='3'){
-				mask=3;
-				count++;
+			if(opcao[zero]=='f'||opcao[zero]=='F'||opcao[zero]=='6'){
+				count=40;
+				mask=7.0;
 			}
-			if(opcao=='b'||opcao=='B'||opcao=='5'){
-				mask=5;
-				count++;
-			}
-			if(opcao=='c'||opcao=='C'||opcao=='7'){
-				mask=7;
-				count++;
-			}
-			if(opcao=='d'||opcao=='D'){
-				printf("Atenção o valor da mascara deve ser impar para ser utilizavel!\n\nExemplo de entrada: 11\n\nResultado: Mascara 11x11\n\n");
-				scanf("%d",&mask);
-				if(mask%2==0){
-					printf("VALOR INSERIDO INVALIDO\n");
-				}
-
-				if(mask%2!=0){
-					count++;
-				}
-			}
-			else{
+			if(opcao[zero]=='x'||opcao[zero]=='X'||opcao[zero]=='9'){
 				system("clear");
-				printf("Opção invalida\n");
+				exit(1);
 			}
 		}
+
 		system("clear");
+		if(count<60){
+			 ////////////////////
+			//while da largura//
+		  ////////////////////
 
-		 ////////////////////
-		//while da largura//
-	  ////////////////////
-
-		while(lar<0){
-			ch=fgetc(fp);
-			if (ch=='P'){
+			while(lar<0){
 				ch=fgetc(fp);
-				ch=fgetc(fp);
-				ch=fgetc(fp);
-			}
-			if (ch=='#'){
-				fgets(lixo, 200, fp);
-			}
-			else{
-				fseek(fp, -2, SEEK_CUR);
-				fscanf(fp, "%d ",&lar);
-			}
-		}
-
-		 ///////////////////
-		//while da altura//
-	  ///////////////////
-
-		while(alt<0){
-			ch=fgetc(fp);
-			if (ch=='#'){
-				fgets(lixo, 200, fp);
-			}
-			else{
-				fseek(fp, -2, SEEK_CUR);
-				fscanf(fp, "%d ",&alt);
-			}
-		}
-
-		 ///////////////////
-		//while da escala//
-	  ///////////////////
-
-		while(esc<0){
-			ch=fgetc(fp);
-			if (ch=='#'){
-				fgets(lixo, 200, fp);
-			}
-			else{
-				fseek(fp, -2, SEEK_CUR);
-				fscanf(fp, "%d ",&esc);
-				printf("Dados do Arquivo\nLargura da imagem em pixeis: %dpx\nAltura da imagem em pixeis: %dpx\nValor do branco(MAXIMO): %d\n",lar,alt,esc);
-			}
-		}
-
-		 /////////////////////////////////////////////////
-		//Criação da matriz de tamanho igual ao arquivo//
-	  /////////////////////////////////////////////////
-
-		matriz=(unsigned char**)malloc((alt+(mask-1))*sizeof(unsigned char*));
-		for (i=0;i<(alt+(mask-1));i++){
-			matriz[i]=(unsigned char*)malloc((lar+(mask-1))*sizeof(unsigned char));
-		}
-
-		matrizvariavel=(unsigned char**)malloc(mask*sizeof(unsigned char*));
-		for (i=0;i<mask;i++){
-			matrizvariavel[i]=(unsigned char*)malloc(mask*sizeof(unsigned char));
-		}
-	
-		 /////////////////////////////////////
-		//Preenche a matriz com borda com 0//
-	  /////////////////////////////////////
-
-		for (i=0; i<alt+(mask-1); i++) {
-			for (j=0; j<lar+(mask-1); j++) {
-				matriz[i][j]=0;
-			}
-		}
-
-		 ////////////////////////////////////////
-		//Preenche a matriz de filtro variavel//
-	  ////////////////////////////////////////
-
-		for (i=0; i<mask; i++) {
-			for (j=0; j<mask; j++) {
-				matrizvariavel[i][j]=1;
-			}
-		}
-
-		 ////////////////////////////////////////
-		//preenche a matriz atraves do arquivo//
-	  ////////////////////////////////////////
-
-		for (i = (mask/2); i< alt+(mask/2); i++) {
-			for (j = (mask/2); j< lar+(mask/2); j++) {
-				unsigned char x;
-				ch = fgetc(fp);
-				if (ch =='#'){
-					fgets(lixo, 200,fp);
-					j--;
-					continue;
+				if (ch=='P'){
+					ch=fgetc(fp);
+					ch=fgetc(fp);
+					ch=fgetc(fp);
 				}
-				fseek(fp, -2, SEEK_CUR);
-				fscanf(fp, "%hhu ",&x);
-				matriz[i][j] = x;
+				if (ch=='#'){
+					fgets(lixo, 200, fp);
+				}
+				else{
+					fseek(fp, -2, SEEK_CUR);
+					fscanf(fp, "%d ",&lar);
+				}
 			}
-		}
 
-		 //////////////////////
-		//Printa as matrizes//
-	  //////////////////////
+			 ///////////////////
+			//while da altura//
+		  ///////////////////
 
-		printf("\nMATRIZ PREENCHIDA A PARTIR DO ARQUIVO\n");
-		for (i=0; i<alt+(mask-1); i++) {
-			for (j=0; j<lar+(mask-1); j++) {
-				printf("%hhu\t", matriz[i][j]);
+			while(alt<0){
+				ch=fgetc(fp);
+				if (ch=='#'){
+					fgets(lixo, 200, fp);
+				}
+				else{
+					fseek(fp, -2, SEEK_CUR);
+					fscanf(fp, "%d ",&alt);
+				}
 			}
-			printf("\n");
-		}
-		printf("\nMATRIZ MASCARA\n");
-		for (i=0; i<mask; i++) {
-			for (j=0; j<mask; j++) {
-				printf("%hhu\t", matrizvariavel[i][j]);
+
+			 ///////////////////
+			//while da escala//
+		  ///////////////////
+
+			while(esc<0){
+				ch=fgetc(fp);
+				if (ch=='#'){
+					fgets(lixo, 200, fp);
+				}
+				else{
+					fseek(fp, -2, SEEK_CUR);
+					fscanf(fp, "%d ",&esc);
+				}
 			}
-			printf("\n");
-		}
 
-		 ////////////////////
-		//Filtro Gaussiano//
-	  ////////////////////
+			 /////////////////////////////////////////////////
+			//Criação da matriz de tamanho igual ao arquivo//
+		  /////////////////////////////////////////////////
 
-		for (i=(mask/2); i<alt+(mask/2); i++) {
-			for (j=(mask/2); j<lar+(mask/2); j++) {
-				soma=0;				
-				for (k=(i-(mask/2)); k<((mask/2)+i); k++) {
-					for (l=(j-(mask/2)); l<((mask/2)+j); l++) {
-						soma=soma+matriz[k][l]+matriz[i][j];
+			matriz=(unsigned char**)malloc((alt+(mask-1))*sizeof(unsigned char*));
+			for (i=0;i<(alt+(mask-1));i++){
+				matriz[i]=(unsigned char*)malloc((lar+(mask-1))*sizeof(unsigned char));
+			}
+			matrizrec=(float**)malloc((alt+(mask-1))*sizeof(float*));
+			for (i=0;i<(alt+(mask-1));i++){
+				matrizrec[i]=(float*)malloc((lar+(mask-1))*sizeof(float));
+			}
+
+			 /////////////////////////////////////
+			//Preenche a matriz com borda com 0//
+		  /////////////////////////////////////
+
+			for (i=0; i<alt+(mask-1); i++) {
+				for (j=0; j<lar+(mask-1); j++) {
+					matriz[i][j]=0;
+					matrizrec[i][j]=0;
+				}
+			}
+			if(count==40){
+				matrizvariavel=(float**)malloc(mask*sizeof(float*));
+				for (i=0;i<mask;i++){
+					matrizvariavel[i]=(float*)malloc(mask*sizeof(float));
+				}
+	
+				 ////////////////////////////////////////
+				//Preenche a matriz de filtro variavel//
+			  ////////////////////////////////////////
+
+				for (i=0; i<floor(mask); i++) {
+					for (j=0; j<floor(mask); j++) {
+						matrizvariavel[i][j]=1/(mask*mask);
 					}
 				}
-				matriz[i][j]=soma/(mask*mask);
 			}
+
+			 ////////////////////////////////////////
+			//preenche a matriz atraves do arquivo//
+		  ////////////////////////////////////////
+
+			for (i = floor(mask/2); i< alt+floor(mask/2); i++) {
+				for (j = floor(mask/2); j< lar+floor(mask/2); j++) {
+					unsigned char x;
+					ch = fgetc(fp);
+					if (ch =='#'){
+						fgets(lixo, 200,fp);
+						j--;
+						continue;
+					}
+					fseek(fp, -2, SEEK_CUR);
+					fscanf(fp, "%hhu ",&x);
+					matriz[i][j] = x;
+				}
+			}
+
+			////////////////
+		  //Filtro Sobel//
+		 ////////////////
+
+			if(count==10){
+				mask=3.0;
+				for (i=floor(mask/2); i<alt+floor(mask/2); i++) {
+					for (j=floor(mask/2); j<lar+floor(mask/2); j++) {
+						soma=0;				
+						for (k=i-floor(mask/2),a=0;a<mask; k++, a++) {
+							for (l=j-floor(mask/2),b=0;b<mask; l++, b++) {
+								soma+=(matriz[k][l]*sobel[a][b]);
+							}
+						}
+						if(soma>esc){
+							soma=esc;
+						}
+						else if(soma<0){
+							soma=0;
+						}
+						matrizrec[i][j]=floor(soma);
+					}
+				}
+
+				 ///////////////////
+				//Salva o arquivo//
+			  ///////////////////
+
+
+				strcat(sobeln,nomearquivo);
+				ps = fopen(sobeln, "w");
+				fprintf(ps,"%s\n",p2);
+				fprintf(ps,"%d %d\n",lar, alt);
+				fprintf(ps,"%d\n",esc);
+				c=0;
+				for(i=floor(mask/2); i<alt+floor(mask/2); i++){
+					for(j=floor(mask/2); j<lar+floor(mask/2); j++){
+						fprintf(ps,"%.0f\t\t",matrizrec[i][j]);
+						c++;
+						if (c>=10){
+							fprintf(ps,"\n");
+							c=0;
+						}
+					}
+				}
+			}
+
+			/////////////////////
+		  //Filtro laplaciano//
+		 /////////////////////
+
+			if(count==20){
+				mask=3.0;
+				for (i=floor(mask/2); i<alt+floor(mask/2); i++) {
+					for (j=floor(mask/2); j<lar+floor(mask/2); j++) {
+						soma=0;				
+						for (k=i-floor(mask/2),a=0;a<mask; k++, a++) {
+							for (l=j-floor(mask/2),b=0;b<mask; l++, b++) {
+								soma+=(matriz[k][l]*laplace[a][b]);
+							}
+						}
+						if(soma>esc){
+							soma=esc;
+						}
+						else if(soma<0){
+							soma=0;
+						}
+						matrizrec[i][j]=floor(soma);
+					}
+				}
+
+				 ///////////////////
+				//Salva o arquivo//
+			  ///////////////////
+
+
+				strcat(laplacen,nomearquivo);
+				ps = fopen(laplacen, "w");
+				fprintf(ps,"%s\n",p2);
+				fprintf(ps,"%d %d\n",lar, alt);
+				fprintf(ps,"%d\n",esc);
+				c=0;
+				for(i=floor(mask/2); i<alt+floor(mask/2); i++){
+					for(j=floor(mask/2); j<lar+floor(mask/2); j++){
+						fprintf(ps,"%.0f\t\t",matrizrec[i][j]);
+						c++;
+						if (c>=10){
+							fprintf(ps,"\n");
+							c=0;
+						}
+					}
+				}
+			}
+
+			/////////////////
+		  //Filtro Prewit//
+		 /////////////////
+
+			if(count==30){
+				mask=3.0;
+				for (i=floor(mask/2); i<alt+floor(mask/2); i++) {
+					for (j=floor(mask/2); j<lar+floor(mask/2); j++) {
+						soma=0;				
+						for (k=i-floor(mask/2),a=0;a<mask; k++, a++) {
+							for (l=j-floor(mask/2),b=0;b<mask; l++, b++) {
+								soma+=(matriz[k][l]*prewitt[a][b]);
+							}
+						}
+						if(soma>esc){
+							soma=esc;
+						}
+						else if(soma<0){
+							soma=0;
+						}
+						matrizrec[i][j]=floor(soma);
+					}
+				}
+
+				 ///////////////////
+				//Salva o arquivo//
+			  ///////////////////
+
+
+				strcat(prewittn,nomearquivo);
+				ps = fopen(prewittn, "w");
+				fprintf(ps,"%s\n",p2);
+				fprintf(ps,"%d %d\n",lar, alt);
+				fprintf(ps,"%d\n",esc);
+				c=0;
+				for(i=floor(mask/2); i<alt+floor(mask/2); i++){
+					for(j=floor(mask/2); j<lar+floor(mask/2); j++){
+						fprintf(ps,"%.0f\t\t",matrizrec[i][j]);
+						c++;
+						if (c>=10){
+							fprintf(ps,"\n");
+							c=0;
+						}
+					}
+				}
+			}
+			 ////////////////////
+			//Filtro Gaussiano//
+		  ////////////////////
+
+			if(count==40){
+
+				for (i=floor(mask/2); i<alt+floor(mask/2); i++) {
+					for (j=floor(mask/2); j<lar+floor(mask/2); j++) {
+						soma=0;				
+						for (k=i-floor(mask/2),a=0;a<mask; k++, a++) {
+							for (l=j-floor(mask/2),b=0;b<mask; l++, b++) {
+								soma+=(matriz[k][l]*matrizvariavel[a][b]);
+							}
+						}
+						if(soma>esc){
+							soma=esc;
+						}
+						else if(soma<0){
+							soma=0;
+						}
+						matrizrec[i][j]=floor(soma);
+					}
+				}
+
+				 ///////////////////
+				//Salva o arquivo//
+			  ///////////////////
+
+				sprintf (tmask,"%.0f",mask);
+				strcat(gaussianon,tmask);
+				strcat(gaussianon,"x");
+				strcat(gaussianon,tmask);
+				strcat(gaussianon," ");
+				strcat(gaussianon,nomearquivo);
+				ps = fopen(gaussianon, "w");
+				fprintf(ps,"%s\n",p2);
+				fprintf(ps,"%d %d\n",lar, alt);
+				fprintf(ps,"%d\n",esc);
+				c=0;
+				for(i=0; i<alt; i++){
+					for(j=0; j<lar; j++){
+						fprintf(ps,"%.0f\t\t",matrizrec[i][j]);
+						c++;
+						if (c>=10){
+							fprintf(ps,"\n");
+							c=0;
+						}
+					}
+				}
+			}
+
+		system("clear");
+		exit(1);
 		}
-
-
-			free(matriz);
-			free(matrizvariavel);
-			fclose(fp);
-
+		free(matriz);
+		free(matrizvariavel);
+		free(matrizrec);
+		fclose(fp);
+		fclose(ps);
 		return 0;
 	}
