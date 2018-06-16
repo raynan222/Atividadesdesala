@@ -50,9 +50,9 @@
 			}
 		}
 		system("clear");
-		 ////////////////////
-		//while da largura//
-	  ////////////////////
+		  ////////////////////
+		 //while da largura//
+		////////////////////
 
 		while(lar<0){
 			ch=fgetc(fp);
@@ -70,9 +70,9 @@
 			}
 		}
 
-		 ///////////////////
-		//while da altura//
-	  ///////////////////
+		  ///////////////////
+		 //while da altura//
+	 	///////////////////
 
 		while(alt<0){
 			ch=fgetc(fp);
@@ -85,9 +85,9 @@
 			}
 		}
 
-		 ///////////////////
-		//while da escala//
-	  ///////////////////
+		  ///////////////////
+		 //while da escala//
+	 	///////////////////
 
 		while(esc<0){
 			ch=fgetc(fp);
@@ -101,27 +101,27 @@
 			}
 		}
 
-		 /////////////////////////////////////////////////
-		//Criação da matriz de tamanho igual ao arquivo//
-	  /////////////////////////////////////////////////
+		  /////////////////////////////////////////////////
+		 //Criação da matriz de tamanho igual ao arquivo//
+	  	/////////////////////////////////////////////////
 
 		matriz=(unsigned char**)malloc((alt+(mask-1))*sizeof(unsigned char*));
 		for (i=0;i<(alt+(mask-1));i++){
 			matriz[i]=(unsigned char*)malloc((lar+(mask-1))*sizeof(unsigned char));
 		}
 	
-		 ///////////////////////////
-		//Preenche a matriz com 0//
-	  ///////////////////////////
+		  ///////////////////////////
+		 //Preenche a matriz com 0//
+	  	///////////////////////////
 
 		for (i=0; i<alt+(mask-1); i++) {
 			for (j=0; j<lar+(mask-1); j++) {
 				matriz[i][j]=0;
 			}
 		}
-		 ////////////////////////////////////////
-		//preenche a matriz atraves do arquivo//
-	  ////////////////////////////////////////
+		  ////////////////////////////////////////
+		 //preenche a matriz atraves do arquivo//
+	  	////////////////////////////////////////
 
 		for (i = (mask/2); i< alt+(mask/2); i++) {
 			for (j = (mask/2); j< lar+(mask/2); j++) {
@@ -138,9 +138,9 @@
 			}
 		}
 
-		 ///////////////////
-		//Printa a matriz//
-	  ///////////////////
+		  ///////////////////
+		 //Printa a matriz//
+	  	///////////////////
 
 		printf("\nMATRIZ PREENCHIDA A PARTIR DO ARQUIVO\n");
 		for (i=0; i<alt+(mask-1); i++) {
