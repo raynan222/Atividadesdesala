@@ -55,4 +55,5 @@
  respectivos metodos de acesso e o metodo toString.
  2 - Crie uma classe chamada GrupoEmpresa. Essa classe devera possuir os seguintes atributos:
  presidente(Pessoa), cnpj e faturamentoAnual com seus devidos metodos de acesso. A classe 
- tambem devera ter um metodo toString.  
+ tambem devera ter um metodo toString. 
+ 3 - Crie uma classe executavel que representa o funcionamento das classes Pessoa e GrupoEmpresa. 
