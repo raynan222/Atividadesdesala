@@ -1,0 +1,58 @@
+- Metodos de acesso
+	- SET : Recebem o valor por parametro e persistem esses dados nos atributos do objeto.
+	- GET : Retornam um valor contido em um certo atributo.
+	OBS : É convencionado se usar métodos de acesso com a seguinte nomeclatura:
+		Atributo : número ---> getNumero	
+						  ---> setNumero
+	
+	* Palavra reservada THIS.
+		É uma forma de acessar os dados de uma classe a partir dela.
+		Ex: public class Casa{
+				private String numero;
+				:
+				:
+				public void setNumero(String numero){
+					This.numero = numero;
+				}
+				
+				public String getNumero(){
+					return This.numero;
+				}		
+		}
+		
+		
+- O método toString:
+	É um método utilizado para representar um certo objeto de classe como uma string.
+	Ex: public class casaGrande{
+			private String Numero;
+			private int Area;
+			// sets e gets
+			
+			public String toString(){
+				String str = " ";
+				str = str + "numero: "+ this.Numero;
+				str = str + "Área: "+ this.Area;
+				return str;
+			}
+		}
+		
+		public class Teste{
+			public static void main(String args[]){
+				casaGrande cg = new CasaGrande();
+				cg.setNumero("100");
+				cg.setArea(100);
+				System.out.println(cg);
+			
+			}
+		} 
+		
+-------------------------------------------------------------------------------------------------------------------------
+
+ EXERCICIOS
+ 
+ 1 - Crie uma classe que represente uma pessoa. Esta classe devera possuir os atributos: 
+ nome, endereco, dataDeNascimento, nome do pai, nome da mae. A classe devera possuir os 
+ respectivos metodos de acesso e o metodo toString.
+ 2 - Crie uma classe chamada GrupoEmpresa. Essa classe devera possuir os seguintes atributos:
+ presidente(Pessoa), cnpj e faturamentoAnual com seus devidos metodos de acesso. A classe 
+ tambem devera ter um metodo toString.  
