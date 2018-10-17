@@ -34,7 +34,7 @@ int main()
     j3 = Jogada(3);
     printf("\n");
     
-    if(j1!=j2 && j1!=j3 && j1!=j3){
+    if(j1!=j2 && j2!=j3 && j1!=j3){
             printf("\nEmpate.");
     }
     if(j1==j2 && j2==j3 && j1==j3){
