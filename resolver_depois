@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <string.h>
+
+char jogo[6];
+
+int Jogada(int jogador){
+    printf("\nJogador %d: ", jogador);
+    scanf("%s", jogo);
+    if (strcmp(jogo, "pedra")){
+        if (strcmp(jogo, "papel")){
+            if (strcmp(jogo, "tesoura")){
+                    printf("\nJogada inválida\n");
+                    return Jogada(jogador);
+            }
+            printf("tesoura.");
+            return 3;
+        }
+        printf("papel.");
+        return 2;
+    }
+    printf("pedra.");
+    return 1;
+}
+
+int main()
+{
+    int j1, j2, j3, i;
+    char jg1[10]={}, jg2[10]={}, jg3[10]={};
+    scanf("%s\n%s\n%s\n", &jg1, &jg2, &jg3);
+    j1 = Jogada(1);
+    printf("\n");
+    j2 = Jogada(2);
+    printf("\n");
+    j3 = Jogada(3);
+    printf("\n");
+    
+    if(j1!=j2 && j1!=j3 && j1!=j3){
+            printf("\nEmpate.");
+    }
+    if(j1==j2 && j2==j3 && j1==j3){
+            printf("\nEmpate.");
+    }else if(j1 == 1){
+        if(j2 == 2 && j3 == 2){
+            printf("\n%s e %s empataram.", jg2,jg3);
+        }
+        if(j2 == 3 && j3 == 3){
+            printf("\nJogador %s venceu.", jg1);
+        }
+    }else if(j1 == 2){
+        if(j2 == 3 && j3 == 3){
+            printf("\nJogador %s e Jogador %s empataram.", jg2,jg3);
+        }
+        if(j2 == 1 && j3 == 1 ){
+            printf("\nJogador %s venceu.", jg1);
+        }
+    }else if(j1 == 3){
+        if(j2 == 1 && j3 == 1){
+            printf("\nJogador %s e Jogador %s empataram.", jg2,jg3);
+        }
+        if(j2 == 2 && j3 == 2){
+            printf("\nJogador %s venceu.", jg1);
+        }
+    }
+    
+    
+
+    return 0;
+}
