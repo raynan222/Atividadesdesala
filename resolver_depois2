@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct{
+    char nomeDoJogador[20];
+    char jogada[10];
+}jogador;
+
+void ganhador (jogador primeiroJogador, jogador segundoJogador){
+    if(strcmp(primeiroJogador.jogada, segundoJogador.jogada) == 0){
+        printf("Empate.");
+    }
+    if(strcmp(primeiroJogador.jogada, "pedra") == 0 && strcmp(segundoJogador.jogada "tesoura") == 0 ){
+        printf("%s Venceu.", primeiroJogador.nomeDoJogador);
+    }
+    if(strcmp(primeiroJogador.jogada, "pedra") == 0 && strcmp(segundoJogador.jogada "papel") == 0 ){
+        printf("%s Venceu.", segundoJogador.nomeDoJogador);
+    }
+    if(strcmp(primeiroJogador.jogada, "tesoura") == 0 && strcmp(segundoJogador.jogada "pedra") == 0 ){
+        printf("%s Venceu.", segundoJogador.nomeDoJogador);
+    }
+    if(strcmp(primeiroJogador.jogada, "tesoura") == 0 && strcmp(segundoJogador.jogada "papel") == 0 ){
+        printf("%s Venceu.", primeiroJogador.nomeDoJogador);
+    }
+    if(strcmp(primeiroJogador.jogada, "papel") == 0 && strcmp(segundoJogador.jogada "tesoura") == 0 ){
+        printf("%s Venceu.", segundoJogador.nomeDoJogador);
+    }
+    if(strcmp(primeiroJogador.jogada, "papel") == 0 && strcmp(segundoJogador.jogada "pedra") == 0 ){
+        printf("%s Venceu.", primeiroJogador.nomeDoJogador);
+    }
+}
+
+
+int main(){
+    jogador primeiro;
+    jogador segundo;
+    scanf("%s\n%s" ,&primeiro.nomeDoJogador, &primeiro.jogada);
+    scanf("%s\n%s" ,&segundo.nomeDoJogador, &segundo.jogada);
+    return 0;
+}
